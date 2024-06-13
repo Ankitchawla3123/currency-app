@@ -6,72 +6,91 @@ import { parse } from 'postcss';
 
 
 function App() {
-  const [inputval,setinputval]=useState(1);
-  const [outputval,setoutputval]=useState(0)
-  let [from,setfrom]=useState('usd');
-  const [to,setto]=useState('inr');
+  const [inputval, setinputval] = useState(1);
+  const [outputval, setoutputval] = useState(0)
+  let [from, setfrom] = useState('usd');
+  const [to, setto] = useState('inr');
 
-  let data=useCurrencyinfo(from);
+  let data = useCurrencyinfo(from);
   // console.log()
 
   // console.log(inputval*parseInt(data[to]));
   // console.log(outputval);
-  function inputvaluechange(value){
+  function inputvaluechange(value) {
     // console.log(parseFloat(value))
-    let valueact=parseFloat(value)
-    if(!isNaN(valueact)){
+    let valueact = parseFloat(value)
+    if (!isNaN(valueact)) {
       setinputval(valueact)
       console.log(inputval)
-      setoutputval(valueact*parseFloat(data[to]))
+      setoutputval(valueact * parseFloat(data[to]))
       // console.log(outputval)
     }
-    else{
+    else {
       setinputval('')
       setoutputval(0)
     }
   }
-function Cchange(currency) {
-  setfrom(currency);
+  function Cchange(currency) {
+    setfrom(currency);
 
-}
-
-
-useEffect(() => {
-  if (!isNaN(inputval) && data[to]) { // Check if data[to] exists and inputval is a valid number
-    setoutputval(inputval * parseFloat(data[to]));
-  } else {
-    setoutputval(0);
   }
-}, [ data, to]);
+
+
+  useEffect(() => {
+    if (!isNaN(inputval) && data[to]) { // Check if data[to] exists and inputval is a valid number
+      setoutputval(inputval * parseFloat(data[to]));
+    } else {
+      setoutputval(0);
+    }
+  }, [data, to]);
+
+  function swap(){
+    setfrom(to)
+    setto(from)
+    // setinputval(outputval);
+  }
 
 
   return (
     <>
-    <div className=" mt-5 flex flex-col justify-between items-center">
-      <div className='text-6xl self-center'>Currency <br /> Convertor</div>
-      <InputField
-      label='From'
-  options={Object.keys(data)}
-  selectcurrency={from}
-  amount={inputval}
-  onamountchange={(amount) => inputvaluechange(amount)}
-  oncurrencychange={(currency) => Cchange(currency)}
-   // Call Cchange here
-/>
+      <div className=" mt-5 flex flex-col items-center h-screen gap-36 sm:gap-20">
+
+        <div className='text-7xl self-center sm:hidden'>Currency <br /> Converter</div>
+        <div className='hidden sm:block sm:text-7xl'>Cuurrency  <br /> Converter</div>
+        <div className=' items-center h-auto w-88 flex flex-col gap-2 relative sm:w-2/5 sm:items-center'>
+          <InputField
+            label='From'
+            options={Object.keys(data)}
+            selectcurrency={from}
+            amount={inputval}
+            onamountchange={(amount) => inputvaluechange(amount)}
+            oncurrencychange={(currency) => Cchange(currency)}
+          />
+
+          {/* Swap button */}
+          <button
+            className='absolute top-1/2 transform -translate-y-1/2 left-1/2 -translate-x-1/2 border-solid border-2 border-black z-10  buttonclass text-2xl sm:text-2xl font-semibold'
+            onClick={swap}
+          >
+            Swap
+          </button>
+
+          <InputField 
+            label='To'
+            options={Object.keys(data)}
+            selectcurrency={to}
+            amount={outputval}
+            onamountchange={(amount) => setoutputval(amount)}
+            oncurrencychange={(currency) => setto(currency)}
+            disabledinput={true}
+            cname={'bg-gray-200 font-semibold	'}
+          />
+        </div>
 
 
-<InputField
-label='To'
-  options={Object.keys(data)}
-  selectcurrency={to}
-  amount={outputval}
-  onamountchange={(amount) => setoutputval(amount)}
-  oncurrencychange={(currency) => setto(currency)}
-  disabledinput={true}
-/>
 
-    </div>
-    
+      </div>
+
     </>
   )
 }

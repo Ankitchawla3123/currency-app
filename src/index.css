@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+    background-color: #e5eaf5;
+    font-family: "Kalam", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.inputbox{
+    background-color: #d0bdf4;
+    font-size: 1.4rem;
+}
+
+.buttonclass{
+    background-color: #494d5f;
+    color: white;
+    width: 3em;
+    height: 2.2em;
+    /* font-size: 1.7rem; */
+}

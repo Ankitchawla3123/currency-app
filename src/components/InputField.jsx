@@ -7,7 +7,8 @@ function InputField({
     onamountchange,
     oncurrencychange,
     selectcurrency,
-    disabledinput=false
+    disabledinput=false,
+    cname
 }) {
     const handleKeyDown = (e) => {
         if (e.key === '-') {
@@ -15,12 +16,12 @@ function InputField({
         }
     };
     return (
-        <div className=' w-5/6 pt-2 pl-4 h-28 border-solid border-2 border-black flex  pr-5 gap-2'>
+        <div className='inputbox w-11/12 pt-2 pl-4 h-32 border-solid border-2 border-black flex  pr-5 gap-2'>
             <div className=' flex-1 pr-3 '>
-                <label className='text-xl text-black/50'>
+                <label className='text-2xl text-black/50'>
                     {label}
                 </label>
-                <input min="0" type="number" className='border w-full border-black rounded h-9 mt-2'
+                <input min="0" type="number" className={`border w-full border-black rounded h-10 mt-2	 ${cname}`}
                 value={amount}
                 onChange={(e)=>onamountchange && onamountchange(e.target.value)}
                 onKeyDown={handleKeyDown}
@@ -30,7 +31,7 @@ function InputField({
 
             </div>
             <div className=''>
-                <label className='text-xl  text-black/50'>
+                <label className='text-2xl  text-black/50'>
                     C-type
                 </label>
     
