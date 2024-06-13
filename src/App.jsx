@@ -53,7 +53,7 @@ function App() {
 
   return (
     <>
-      <div className=" mt-5 flex flex-col items-center h-screen gap-32 sm:gap-20">
+      <div className=" mt-5 flex flex-col items-center h-screen gap-28 sm:gap-20">
 
         <div className='text-7xl self-center sm:hidden'>Currency <br /> Converter</div>
         <div className='hidden sm:block sm:text-7xl'>Cuurrency  <br /> Converter</div>
